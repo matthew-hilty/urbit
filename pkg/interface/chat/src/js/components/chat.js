@@ -6,6 +6,7 @@ import { Route, Link } from "react-router-dom";
 import { store } from "/store";
 
 import { ResubscribeElement } from '/components/lib/resubscribe-element';
+import { BacklogElement } from '/components/lib/backlog-element';
 import { Message } from '/components/lib/message';
 import { SidebarSwitcher } from '/components/lib/icons/icon-sidebar-switch.js';
 import { ChatTabBar } from '/components/lib/chat-tabbar';
@@ -273,8 +274,13 @@ export class ChatScreen extends Component {
             ref={el => {
               this.scrollElement = el;
             }}></div>
-            { (
-                props.chatSynced &&
+          {  }
+          { (props.chatInitialized &&
+             !(props.station in props.inbox)) && (
+                 <BacklogElement />
+            )}
+            {
+              (props.chatSynced &&
                 !(props.station in props.chatSynced) &&
                 (messages.length > 0)
               ) ? (
